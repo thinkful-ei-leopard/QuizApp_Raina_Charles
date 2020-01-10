@@ -1,33 +1,81 @@
+/* eslint-disable strict */
 /**
  * Example store structure
  */
-const store = {
+const STORE = {
   // 5 or more questions are required
   questions: [
     {
-      question: 'What color is broccoli?',
+      question: 'Which of the following animal went “oink oink”?',
       answers: [
-        'red',
-        'orange',
-        'pink',
-        'green'
+        'Cow',
+        'Pig',
+        'Duck',
+        'Horse',
+        'Lamb'
       ],
-      correctAnswer: 'green'
+      correctAnswer: 'Pig',
+      feedback: 'The correct annswer is Pig'
     },
     {
-      question: 'What is the current year?',
+      question: 'Which of the following animal went “quack quack” ?',
       answers: [
-        '1970',
-        '2015',
-        '2019',
-        '2005'
+        'Cow',
+        'Pig',
+        'Duck',
+        'Horse',
+        'Lamb'
       ],
-      correctAnswer: '2019'
+      correctAnswer: 'Duck',
+      feedback: 'The correct annswer is Duck'
+    },
+    {
+      question: 'Which of the following animal went “neigh neigh” ?',
+      answers: [
+        'Cow',
+        'Pig',
+        'Duck',
+        'Horse',
+        'Lamb'
+      ],
+      correctAnswer: 'Horse',
+      feedback: 'The correct annswer is Horse'
+    },
+    {
+      question: 'Which of the following animal went “baa baa” ?',
+      answers: [
+        'Cow',
+        'Pig',
+        'Duck',
+        'Horse',
+        'Lamb'
+      ],
+      correctAnswer: 'Lamb',
+      feedback: 'The correct annswer is Lamb'
+    },
+    {
+      question: 'Which of the following animal went “moo moo” ?',
+      answers: [
+        'Cow',
+        'Pig',
+        'Duck',
+        'Horse',
+        'Lamb'
+      ],
+      correctAnswer: 'moo moo',
+      feedback: 'The correct annswer is Cow'
     }
   ],
   questionNumber: 0,
   score: 0
 };
+
+
+
+
+
+
+
 
 /**
  *
@@ -41,3 +89,4 @@ const store = {
  * You may add attributes (classes, ids, etc) to the existing HTML elements, or link stylesheets or additional scripts if necessary
  *
  */
+ 
