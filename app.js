@@ -70,8 +70,30 @@ const STORE = {
   score: 0
 };
 
+function renderQuiz();
+function renderQuestionPage();
+function renderQuestion();
+function renderMultipleChoice();
+function renderCorrectAnswer();
+function renderFeedback();
+function renderQuestionNumber();
+function renderCurrentScore();
+function renderNextButton();
+function renderFinalPage();
 
 
+// breakdown of this app:
+/*
+  * the quiz should be rendered to the page
+  * go to the next page when pressing start button
+  * clik the answer on the multiple choice
+  * show the page number
+  * show the progress
+  * show the result
+  * go to the nex page
+  * show overall score on the last page
+  * start over button on the last page brings user back to the first page
+*/
 
 
 
