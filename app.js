@@ -71,14 +71,16 @@ const STORE = {
       feedback: 'The correct annswer is Cow'
     }
   ],
-  quizStarted: false,
+  quizStarted: 'false',
+  answerSubmitted: 'correct',
   questionNumber: 0,
-  score: 0
+  score: 0,
+  questionAmount: 5
 };
 
 
 /*  Generate all HTML contents in the app  */
-
+// Pages Section
 /*start page
       generates HTML for start page */
 function generateStartPage() {
@@ -92,25 +94,7 @@ function generateStartPage() {
     `;
 }
 
-  /*question page
-      generates all HTML contents in question page*/
-function generateQuestions() {
-  let currentQuestion = STORE.questions[STORE.questionNumber].question;
-return currentQuestion;
-}
-
-function generateAnswers() {
-  const answers1 = STORE.questions[STORE.questionNumber].answers[0];
-  const answers2 = STORE.questions[STORE.questionNumber].answers[1];
-  const answers3 = STORE.questions[STORE.questionNumber].answers[2];
-  const answers4 = STORE.questions[STORE.questionNumber].answers[3];
-  const answers5 = STORE.questions[STORE.questionNumber].answers[4]; 
-  return `<input type='radio' value='answer'>${answers1}</br>` +
-  `<input type='radio' value='answer'>${answers2}</br>` +
-  `<input type='radio' value='answer'>${answers3}</br>` +
-  `<input type='radio' value='answer'>${answers4}</br>` +
-  `<input type='radio' value='answer'>${answers5}</br>`;
-}
+// generates HTML for questions page
 
 function questionPage() {
   return `
@@ -122,22 +106,75 @@ function questionPage() {
     </div>
     `;
 }
+
+// generates HTML for answers page
+
+function AnswersPage() {
+  return `
+    <div class='correctAnswersPage'> 
+     <p>${rightORWrong()}</p>
+     <p>You have ${scoreDisplay()} right</p>
+     <p>You are on ${questionNumberDisplay()} out of ${questionAmountDisplay()} questions</p>
+      <button id='next' type="button">Next</button>
+    
+    </div>
+    `;
+}
+
+
+/*question page
+      generates all HTML contents in question page*/
+function generateQuestions() {
+  let currentQuestion = STORE.questions[STORE.questionNumber].question;
+  return currentQuestion;
+}
+
+function rightORWrong(){
+  return STORE.answerSubmitted;
   
+}
+function scoreDisplay(){
+  return STORE.score;
+
+}
+function questionNumberDisplay(){
+  return STORE.questionNumber;
+}
+function questionAmountDisplay(){
+  return STORE.questionAmount;
+}
+
+
+
+
+function generateAnswers() {
+  const answers1 = STORE.questions[STORE.questionNumber].answers[0];
+  const answers2 = STORE.questions[STORE.questionNumber].answers[1];
+  const answers3 = STORE.questions[STORE.questionNumber].answers[2];
+  const answers4 = STORE.questions[STORE.questionNumber].answers[3];
+  const answers5 = STORE.questions[STORE.questionNumber].answers[4]; 
+  return `<input type='radio' name ='answer' value='cow'>${answers1}</br>` +
+  `<input type='radio' name ='answer' value='pig'>${answers2}</br>` +
+  `<input type='radio' name ='answer' value='duck'>${answers3}</br>` +
+  `<input type='radio' name ='answer' value='horse'>${answers4}</br>` +
+  `<input type='radio' name ='answer' value='lamb'>${answers5}</br>`;
+}
+
 
 
   
-  function generateProgress() {
-  }
-  function generateScore() {
-  }
+function generateProgress() {
+}
+function generateScore() {
+}
 
 
-  /*Feedback page
+/*Feedback page
       generates all HTML contents in question page*/
 function generateFeedback() {
 }
 
-  /*Result page
+/*Result page
       generates all HTML contents in question page*/
 function generateResultPage() {
 }
@@ -146,32 +183,65 @@ function generateResultPage() {
 /*  Render functions  */ 
 function renderFunctions() {
   
-  if (STORE.quizStarted === false) {
+  if (STORE.quizStarted === 'false') {
     $('main').html(generateStartPage());
     return;
   }
 
-  else if (STORE.quizStarted === true) {
+  if (STORE.quizStarted === 'true') {
     $('main').html(questionPage());
     return;
   }
+
+  if (STORE.quizStarted === 'answer' && STORE.answerSubmitted === 'correct' ) {
+    $('main').html(AnswersPage());
+    return;
+  }
+  if (STORE.quizStarted === 'answer' && STORE.answerSubmitted === 'incorrect' ) {
+    $('main').html(AnswersPage());
+    return;
+  }
+  
 }
 
 /*  handle functions */
 function handleStartButton() {
   $('main').on('click', '#start', function(event) {
-    STORE.quizStarted = true;
+    STORE.quizStarted = 'true';
     renderFunctions();
     questionPage();
     console.log('handleStartButton running');
   }); 
 }
 
+function handleSubmitButton() {
+  $('main').on('click', '#submit', function(event) {
+    STORE.quizStarted = 'answer';
+    event.preventDefault();
+    console.log('handleSubmitButton running');
+    renderFunctions();
+    AnswersPage();
+    
+  }); 
+}
+
+function handleNextButton() {
+  $('main').on('click', '#next', function(event) {
+    STORE.quizStarted = 'true';
+    event.preventDefault();
+    console.log('handleNextButton running');
+    renderFunctions();
+    AnswersPage();
+    
+  }); 
+}
+
 
 function letsRunIt() {
-renderFunctions();
-handleStartButton();
-
+  renderFunctions();
+  handleStartButton();
+  handleSubmitButton();
+  handleNextButton();
 }
 
 $(letsRunIt);
